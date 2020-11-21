@@ -28,7 +28,7 @@ class articleGUI:
     def right_top_canvas(self): # 오른쪽 위 캔버스
         self.left_top_canvas = tkinter.Canvas(self.canvas, width=210, height=280, highlightthickness=0) #highlightthickness는 canvas 회색 테두리 없앰
         self.left_top_canvas.place(x=890, y=0)
-        self.bg = tkinter.PhotoImage(file="C:/Users/dayeon/PycharmProjects/EAT-IT/image/article_right_top_bg.gif")
+        self.bg = tkinter.PhotoImage(file="../image/article_right_top_bg.gif")
         self.left_top_canvas.create_image(0, 0, image=self.bg,anchor='nw')
 
 
