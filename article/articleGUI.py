@@ -60,7 +60,7 @@ class articleGUI:
         self.right_bottom_prev=tkinter.Button(self.right_bottom_canvas, image=self.prev_bg, width=44,height=45, highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_prev.place(x=15, y=370)
 
-        # prev버튼(화살표-이전버튼)
+        # next버튼(화살표-이후버튼)
         self.next_bg=tkinter.PhotoImage(file="../image/article_right_bottom_next.gif")
         self.right_bottom_next=tkinter.Button(self.right_bottom_canvas, image=self.next_bg, width=44, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_next.place(x=151, y=370)
