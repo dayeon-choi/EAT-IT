@@ -1,16 +1,28 @@
+from DB.noteDB import noteDB
+from datetime import datetime
+
 class Note:
-    def __init__(self, title, contents):
-        self.title = title
-        self.contents = contents
+    def __init__(self):
+        pass
 
     def show_note(self):
-        pass
+        noteDB.__str__(self)
 
-    def set_note(self):
-        pass
+    def add_note(self):
+        title = input("제목 입력 : ")
+        content = input("내용 입력 : ")
+        date = datetime.today().strftime("%Y/%m/%d")
+        noteDB.insert(self, title, content, date)
+        print("추가되었습니다!")
 
-    def get_note(self):
-        pass
+    def delete_note(self):
+        title = input("데이터베이스에 있는 노트의 제목을 입력하세요 : ")
+        noteDB.delete(self, title)
+        print("삭제되었습니다!")
 
     def __str__(self):
         pass
+
+if __name__ == '__main__':
+    note = Note()
+    note.add_note()
