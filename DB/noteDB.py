@@ -20,13 +20,13 @@ class noteDB():
             # db 생성
             noteDB.mydb = noteDB.my_client['notedb']
             noteDB.mycol = noteDB.mydb['notecol']
-            x = mycol.insert_one({"title": "test", "content": "test", "date": "test"})
+            x = noteDB.mycol.insert_one({"title": "test", "content": "test", "date": "test"})
 
     def insert(self, title, content, date):
         DBHandler.insert_item_one(noteDB.my_client, {"title": title, "content": content, "date": date}, "notedb", "notecol")
 
-    def update(self):
-        DBHandler.update_item_one()
+    def update(self, modify_title, title, content, date):
+        DBHandler.update_item_one(noteDB.my_client, {"title": modify_title}, {"$set": {"title": title, "content": content, "date": date}}, "notedb", "notecol")
 
     def delete(self, title):
         DBHandler.delete_item_one(noteDB.my_client, {"title": title}, "notedb", "notecol")
