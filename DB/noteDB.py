@@ -20,7 +20,7 @@ class noteDB():
             # db 생성
             noteDB.mydb = noteDB.my_client['notedb']
             noteDB.mycol = noteDB.mydb['notecol']
-            x = mycol.insert_one({"title": "test", "content": "test", "date": "test"})
+            x = noteDB.mycol.insert_one({"title": "test", "content": "test", "date": "test"})
 
     def insert(self, title, content, date):
         DBHandler.insert_item_one(noteDB.my_client, {"title": title, "content": content, "date": date}, "notedb", "notecol")
