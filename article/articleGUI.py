@@ -33,9 +33,16 @@ class articleGUI:
         self.right_top_canvas_bg = tkinter.PhotoImage(file="../image/article_right_top_bg.PNG")
         self.right_top_canvas.create_image(0, 0, image=self.right_top_canvas_bg, anchor='nw')
         # Label
-        self.right_top_time_label=tkinter.Label(self.right_top_canvas,bg='#786255',fg='#FBDDC5',text='00:00:00',font=("None", 25, 'bold'))
-        self.right_top_time_label.place(x=40,y=110)
+        self.right_top_time_label=tkinter.Label(self.right_top_canvas,bg='#786255',fg='#FBDDC5',text='00:00',font=("None", 25, 'bold'))
+        self.right_top_time_label.place(x=62,y=110)
         # button
+        self.timer_start = tkinter.PhotoImage(file="../image/article_right_top_timer_start.png")
+        self.right_top_time_btn = tkinter.Button(self.right_top_canvas, image=self.timer_start, command=self.timer_toggle,width=45, height=45, highlightthickness=0, borderwidth=0, padx=0, pady=0)
+        self.right_top_time_btn.place(x=82.5,y=170)
+        #timer toggle true
+        self.paused=True    #start안한상태
+
+
 
     def right_bottom_bundle(self):  #오른쪽 아래 캔버스 묶음
         #캔버스
@@ -84,6 +91,27 @@ class articleGUI:
         # self.now=time.strftime("%H:%M:%S")
         # self.right_top_canvas.create_text(100, 100, text=self.now, font=("None", 25, 'bold'), fill="#FBDDC5")
         # self.root.after(1000,self.update_clock)
+
+    def timer_toggle(self):
+        if self.paused:
+            self.paused=False
+            self.timer_stop = tkinter.PhotoImage(file="../image/article_right_top_timer_stop.png")
+            self.right_top_time_btn.config(image=self.timer_stop)
+            self.oldtime=time.time()
+            self.timer_run()
+        else:
+            self.paused=True
+            self.oldtime=time.time()
+            self.right_top_time_btn.config(image=self.timer_start)
+
+    def timer_run(self):
+        if self.paused:
+            return
+        delta = int(time.time() - self.oldtime)
+        timestr = '{:02}:{:02}'.format(*divmod(delta, 60))
+        self.right_top_time_label.config(text=timestr)
+        self.right_top_time_label.after(1000,self.timer_run)
+
 
 
 if __name__=='__main__':
