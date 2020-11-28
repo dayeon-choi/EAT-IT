@@ -31,11 +31,23 @@ class noteDB():
     def delete(self, title):
         DBHandler.delete_item_one(noteDB.my_client, {"title": title}, "notedb", "notecol")
 
+    def find(self):
+        list = DBHandler.find_item(noteDB.my_client, None, "notedb", "notecol")
+        dbListAll = []
+        dbList = []
+        for dic in list:
+            for i in dic.values():
+                dbList.append(i)
+            dbListAll.append(dbList)
+            dbList = []
+        return dbListAll
+
     def __str__(self):
         list = DBHandler.find_item(noteDB.my_client, None, "notedb", "notecol")
         for x in list:
             print(x)
 
+
 if __name__ == '__main__':
     noteDB = noteDB()
-    noteDB.__str__()
+    print(noteDB.find())
