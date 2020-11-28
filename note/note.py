@@ -6,7 +6,7 @@ class Note:
         pass
 
     def show_note(self):
-        noteDB.__str__(self)
+        print(noteDB.find(self))
 
     def add_note(self):
         title = input("제목 입력 : ")
@@ -33,4 +33,4 @@ class Note:
 
 if __name__ == '__main__':
     note = Note()
-    note.update_note()
+    note.show_note()
