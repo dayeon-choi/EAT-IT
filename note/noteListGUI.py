@@ -38,7 +38,7 @@ class noteListGUI:
                         foreground="black",
                         rowheight=35,
                         fieldbackground="silver",
-                        font=("None", "10")
+                        font=("None", "15")
                         )
         # selected color
         style.map('Treeview',
@@ -54,10 +54,9 @@ class noteListGUI:
 
         # treeview(노트 표)
         self.note_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set)
-
         self.note_tree.pack()
-
         self.note_tree.bind("<Double-1>", self.onTreeClick)
+        self.note_tree.bind("<Button-1>", self.handle_click)
 
         # Configure the scrollbar
         tree_scroll.config(command=self.note_tree.yview)
@@ -78,14 +77,15 @@ class noteListGUI:
         self.note_tree.heading("date", text="날짜(date)", anchor=W)
 
         # Add data
-        data = noteDB.find(self)
+        data = sorted(noteDB.find(self), key=lambda date: date[2])
+        data.reverse()
         cnt = 0
         for record in data:
             self.note_tree.insert(parent='', index='end', iid=cnt, text="", value=(record[0], record[1], record[2]))
             cnt += 1
 
-
         self.root.mainloop()
+
 
     # Click event
     def btnClick(self):
@@ -99,5 +99,12 @@ class noteListGUI:
         self.root.destroy()
         noteDetailGUI(title, content)
 
+    # 크기 조절 못하게
+    def handle_click(self, event):
+        if self.note_tree.identify_region(event.x, event.y) == "separator":
+            return "break"
+
 if __name__ == '__main__':
     noteListGUI = noteListGUI()
+    
+    # text 박스에 scrollbar 추가해야함
