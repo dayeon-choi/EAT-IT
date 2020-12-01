@@ -1,10 +1,11 @@
 import tkinter
 from tkinter import *
-from note import Note
+from tkinter import messagebox
 from noteEditGUI import noteEditGUI
+from noteListGUI import noteListGUI
 
 class noteDetailGUI:
-    def __init__(self):
+    def __init__(self, title, content):
         CANVAS_SIZE_WIDTH = 1100  # canvas 가로 길이
         CANVAS_SIZE_HEIGHT = 750  # canvas 세로 길이
 
@@ -22,12 +23,12 @@ class noteDetailGUI:
         # entry(글 제목)
         entry_title = tkinter.Entry(self.root, width=20, background="#FAF7F4", font=("None", "20"), borderwidth=9,
                                     relief="flat", justify="center")
-        entry_title.insert(0, "글 제목")
+        entry_title.insert(0, title)
         entry_title.pack(pady=50)
 
         # button(delete)
         btn_delete = tkinter.Button(self.root, text="DELETE", width=8, foreground="#000000", background="#B99D7A",
-                                 relief="raised", font=("None", "20"))
+                                 relief="raised", font=("None", "20"), command=lambda: self.btnDelete(title))
         btn_delete.place(x=750, y=120)
 
         # button(modify)
@@ -38,7 +39,7 @@ class noteDetailGUI:
         # text(content)
         text_con = tkinter.Text(self.root, width=52, height=13, background="#FAF7F4", wrap='word', font=("None", "20"),
                                 spacing1=7)
-        text_con.insert(tkinter.CURRENT, "글 내용")
+        text_con.insert(tkinter.CURRENT, content)
         text_con.place(x=132, y=210)
 
         scroll_y = tkinter.Scrollbar(self.root, orient="vertical", command=text_con.yview)
@@ -54,7 +55,12 @@ class noteDetailGUI:
         noteEditGUI()
 
     def btnDelete(self, title):
-        Note.delete_note(None, title)
+        # Note.delete_note(None, title)
+        # 메시지창 띄워주기
+        tkinter.messagebox.showinfo("삭제 확인", "삭제되었습니다")
+        # list로 돌아가기
+        self.root.destroy()
+        noteListGUI()
 
 if __name__ == '__main__':
     noteDetailGUI = noteDetailGUI()
