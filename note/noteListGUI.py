@@ -2,10 +2,7 @@ import tkinter
 from tkinter import *
 from tkinter import ttk
 from DB.noteDB import noteDB
-
-# Click event
-def btnClick():
-    pass
+from noteAddGUI import noteAddGUI
 
 class noteListGUI:
     def __init__(self):
@@ -24,11 +21,12 @@ class noteListGUI:
         wall_label.place(x=-2, y=-2)
 
         # label(노트 목록)
-        label = tkinter.Label(self.root, text="노트 목록",foreground="#ffffff", background="#503A2E", font=("None", "35"))
+        label = tkinter.Label(self.root, text="노트 목록", foreground="#ffffff", background="#503A2E", font=("None", "35"))
         label.pack(pady=50)
 
         # button(new)
-        btn_new = tkinter.Button(self.root, text="NEW",foreground="#F4DBCD", background="#81634E", relief="raised", font=("None", "20"), command=btnClick)
+        btn_new = tkinter.Button(self.root, text="NEW", width=5, foreground="#F4DBCD", background="#81634E", relief="raised", font=("None", "20"),
+                                 command=lambda: self.btnClick())
         btn_new.place(x=950, y=120)
 
         # Add treeview Style
@@ -44,9 +42,21 @@ class noteListGUI:
         style.map('Treeview',
                   background=[('selected', '#AD8F89')])
 
+        # Create Treeview Frame
+        tree_frame = Frame(self.root)
+        tree_frame.pack(pady=70)
+
+        # Treeview Scrollbar
+        tree_scroll = Scrollbar(tree_frame)
+        tree_scroll.pack(side=RIGHT, fill=Y)
 
         # treeview(노트 표)
-        note_tree = ttk.Treeview(self.root)
+        note_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set)
+
+        note_tree.pack()
+
+        # Configure the scrollbar
+        tree_scroll.config(command=note_tree.yview)
 
         # Columns
         note_tree['columns'] = ("title", "content", "date")
@@ -70,9 +80,14 @@ class noteListGUI:
             note_tree.insert(parent='', index='end', iid=cnt, text="", value=(record[0], record[1], record[2]))
             cnt += 1
 
-        note_tree.pack(pady=70)
+
 
         self.root.mainloop()
+
+    # Click event
+    def btnClick(self):
+        self.root.destroy()
+        noteAddGUI()
 
 if __name__ == '__main__':
     noteListGUI = noteListGUI()
