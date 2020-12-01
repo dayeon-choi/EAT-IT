@@ -45,16 +45,19 @@ class noteDetailGUI:
         btn_modify.place(x=910, y=120)
 
         # text(content)
+        text_frame = Frame(self.root)
+        text_frame.place(x=132, y=210)
+
+        text_scroll = Scrollbar(text_frame)
+        text_scroll.pack(side=RIGHT, fill=Y)
+
         text_con = tkinter.Text(self.root, width=52, height=13, background="#FAF7F4", wrap='word', font=("None", "20"),
-                                spacing1=7)
+                                spacing1=7, yscrollcommand=text_scroll.set)
         text_con.insert(tkinter.CURRENT, content)
         text_con.configure(state='disabled')
         text_con.place(x=132, y=210)
 
-        scroll_y = tkinter.Scrollbar(self.root, orient="vertical", command=text_con.yview)
-        scroll_y.place(x=950, y=605)
-
-        text_con.configure(yscrollcommand=scroll_y.set)
+        text_scroll.config(command=text_con.yview)
 
         self.root.mainloop()
 

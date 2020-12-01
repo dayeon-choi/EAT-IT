@@ -56,7 +56,11 @@ class noteAddGUI:
 
     # Click event
     def btnSave(self, title, content):
+        from noteListGUI import noteListGUI
         Note.add_note(None, title, content)
+        tkinter.messagebox.showinfo("추가 확인", "추가되었습니다")
+        self.root.destroy()
+        noteListGUI()
 
     def btnBack(self):
         from noteListGUI import noteListGUI
