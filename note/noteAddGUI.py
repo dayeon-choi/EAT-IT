@@ -18,6 +18,12 @@ class noteAddGUI:
         wall_label = Label(image=wall)
         wall_label.place(x=-2, y=-2)
 
+        # PhotoImage(back)
+        img_back = tkinter.PhotoImage(file="../image/button_back.PNG")
+        btn_back = tkinter.Button(self.root, image=img_back, relief="solid", highlightthickness=0, borderwidth=0,
+                                  command=lambda: self.btnBack())
+        btn_back.place(x=10, y=10)
+
         # label(노트 추가)
         label = tkinter.Label(self.root, text="노트 추가",foreground="#ffffff", background="#503A2E", font=("None", "35"))
         label.pack(pady=50)
@@ -51,6 +57,11 @@ class noteAddGUI:
     # Click event
     def btnSave(self, title, content):
         Note.add_note(None, title, content)
+
+    def btnBack(self):
+        from noteListGUI import noteListGUI
+        self.root.destroy()
+        noteListGUI()
 
 if __name__ == '__main__':
     noteAddGUI = noteAddGUI()

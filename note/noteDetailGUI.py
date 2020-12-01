@@ -1,8 +1,9 @@
 import tkinter
 from tkinter import *
 from tkinter import messagebox
+from note import Note
 from noteEditGUI import noteEditGUI
-from noteListGUI import noteListGUI
+
 
 class noteDetailGUI:
     def __init__(self, title, content):
@@ -20,10 +21,17 @@ class noteDetailGUI:
         wall_label = Label(image=wall)
         wall_label.place(x=-2, y=-2)
 
+        # PhotoImage(back)
+        img_back = tkinter.PhotoImage(file="../image/button_back.PNG")
+        btn_back = tkinter.Button(self.root, image=img_back, relief="solid", highlightthickness=0, borderwidth=0,
+                                  command=lambda: self.btnBack())
+        btn_back.place(x=10, y=10)
+
         # entry(글 제목)
         entry_title = tkinter.Entry(self.root, width=20, background="#FAF7F4", font=("None", "20"), borderwidth=9,
                                     relief="flat", justify="center")
         entry_title.insert(0, title)
+        entry_title.configure(state='disabled')
         entry_title.pack(pady=50)
 
         # button(delete)
@@ -33,13 +41,14 @@ class noteDetailGUI:
 
         # button(modify)
         btn_modify = tkinter.Button(self.root, text="MODIFY", width=8, foreground="#000000", background="#EDBC83",
-                                 relief="raised", font=("None", "20"), command=lambda: self.btnModify())
+                                 relief="raised", font=("None", "20"), command=lambda: self.btnModify(entry_title.get(), text_con.get("1.0", END)))
         btn_modify.place(x=910, y=120)
 
         # text(content)
         text_con = tkinter.Text(self.root, width=52, height=13, background="#FAF7F4", wrap='word', font=("None", "20"),
                                 spacing1=7)
         text_con.insert(tkinter.CURRENT, content)
+        text_con.configure(state='disabled')
         text_con.place(x=132, y=210)
 
         scroll_y = tkinter.Scrollbar(self.root, orient="vertical", command=text_con.yview)
@@ -50,15 +59,19 @@ class noteDetailGUI:
         self.root.mainloop()
 
     # Click event
-    def btnModify(self):
+    def btnModify(self, title, content):
         self.root.destroy()
-        noteEditGUI()
+        noteEditGUI(title, content)
 
     def btnDelete(self, title):
-        # Note.delete_note(None, title)
-        # 메시지창 띄워주기
+        from noteListGUI import noteListGUI
+        Note.delete_note(None, title)
         tkinter.messagebox.showinfo("삭제 확인", "삭제되었습니다")
-        # list로 돌아가기
+        self.root.destroy()
+        noteListGUI()
+
+    def btnBack(self):
+        from noteListGUI import noteListGUI
         self.root.destroy()
         noteListGUI()
 
