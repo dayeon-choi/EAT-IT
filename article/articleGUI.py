@@ -91,6 +91,7 @@ class articleGUI:
 
     def timer_run(self):
         if self.paused:
+            print("Timer stop") #타이머는 멈췄으나 아직 시간 데이터는 지워지지 않은 상태 DB넣기는 여기서 하면 될 것 같음
             return
         delta = int(time.time() - self.oldtime)
         timestr = '{:02}:{:02}'.format(*divmod(delta, 60))

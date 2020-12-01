@@ -2,8 +2,8 @@ import tkinter
 from tkinter import *
 from tkinter import ttk
 from DB.noteDB import noteDB
-from noteAddGUI import noteAddGUI
-from noteDetailGUI import noteDetailGUI
+from note.noteAddGUI import noteAddGUI
+from note.noteDetailGUI import noteDetailGUI
 
 class noteListGUI:
 

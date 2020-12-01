@@ -1,6 +1,6 @@
 import tkinter
 from tkinter import *
-from note import Note
+from note.note import Note
 
 class noteAddGUI:
     def __init__(self):
