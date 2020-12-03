@@ -2,8 +2,8 @@ import tkinter
 from tkinter import *
 from tkinter import ttk
 from DB.noteDB import noteDB
-from note.noteAddGUI import noteAddGUI
-from note.noteDetailGUI import noteDetailGUI
+from GUI.noteAddGUI import noteAddGUI
+from GUI.noteDetailGUI import noteDetailGUI
 
 class noteListGUI:
 
@@ -18,7 +18,7 @@ class noteListGUI:
         self.root.resizable(False, False)  # 창 길이 조절 불가능
 
         # background image
-        wall = PhotoImage(file="../image/note_bg.PNG")
+        wall = PhotoImage(file="../image/note_bg.png")
         wall_label = Label(image=wall)
         wall_label.place(x=-2, y=-2)
 

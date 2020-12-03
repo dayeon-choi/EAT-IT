@@ -17,12 +17,12 @@ class noteDetailGUI:
         self.root.resizable(False, False)  # 창 길이 조절 불가능
 
         # background image
-        wall = PhotoImage(file="../image/note_bg.PNG")
+        wall = PhotoImage(file="../image/note_bg.png")
         wall_label = Label(image=wall)
         wall_label.place(x=-2, y=-2)
 
         # PhotoImage(back)
-        img_back = tkinter.PhotoImage(file="../image/button_back.PNG")
+        img_back = tkinter.PhotoImage(file="../image/button_back.png")
         btn_back = tkinter.Button(self.root, image=img_back, relief="solid", highlightthickness=0, borderwidth=0,
                                   command=lambda: self.btnBack())
         btn_back.place(x=10, y=10)
