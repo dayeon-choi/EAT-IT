@@ -47,8 +47,12 @@ class articleGUI:
         self.left_url_label.bind("<Button-1>",self.callback)
         self.left_url_label.place(x=10, y=37)
         # Content Label
-        self.left_content_label= tkinter.Label(self.left_canvas,width=108,height=40,bg='#FFFFFF', fg='#000000', text=self.articleContent, font=("Arial", 10))
-        self.left_content_label.place(x=10,y=85)
+        self.left_content_text=tkinter.Text(self.left_canvas,width=79,height=28)
+        self.left_content_text.place(x=10, y=85)
+        self.left_content_text.insert(1.0,self.articleContent)
+        self.left_content_text.configure(state='disabled',font=('Arial',15))
+        #self.left_content_label= tkinter.Label(self.left_canvas,width=108,height=40,bg='#FFFFFF', fg='#000000', text=self.articleContent, font=("Arial", 10))
+
 
 
     def right_top_bundle(self): # 오른쪽 위 캔버스 묶음
