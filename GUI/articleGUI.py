@@ -50,9 +50,9 @@ class articleGUI:
         self.left_content_text=tkinter.Text(self.left_canvas,width=79,height=28)
         self.left_content_text.place(x=10, y=85)
         self.left_content_text.insert(1.0,self.articleContent)
+        print("setting")
         self.left_content_text.configure(state='disabled',font=('Arial',15))
         #self.left_content_label= tkinter.Label(self.left_canvas,width=108,height=40,bg='#FFFFFF', fg='#000000', text=self.articleContent, font=("Arial", 10))
-
 
 
     def right_top_bundle(self): # 오른쪽 위 캔버스 묶음
@@ -100,8 +100,19 @@ class articleGUI:
 
         # next버튼(화살표-이후버튼)
         self.next_bg=tkinter.PhotoImage(file="../image/article_right_bottom_next.gif")
-        self.right_bottom_next=tkinter.Button(self.right_bottom_canvas, image=self.next_bg, width=44, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
+        self.right_bottom_next=tkinter.Button(self.right_bottom_canvas,command=self.articleNext, image=self.next_bg, width=44, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_next.place(x=151, y=370)
+
+    def articleNext(self):
+        self.articleIndex+=1
+        self.articleCrawlingArray = articleCrawling(self.articleIndex)
+        self.articleURL = self.articleCrawlingArray[0]
+        self.articleContent = self.articleCrawlingArray[1]
+        self.left_url_label.config(text=self.articleURL)
+        self.left_content_text.configure(state='normal')
+        self.left_content_text.delete(1.0,"end")
+        self.left_content_text.insert(0.0, self.articleContent)
+        self.left_content_text.configure(state='disabled')
 
     def timer_toggle(self):
         if self.paused:

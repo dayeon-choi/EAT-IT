@@ -59,7 +59,7 @@ def clean_text(text,URL):
     print(result)
     return result
 
-def articleCrawling(articleIndex=1,keyword="IT 밴처기업"):
+def articleCrawling(articleIndex=1,keyword="IT 기술"):
     # 검색하고 하는 단어 keyword = "IT 밴처기업"
     page_num = 5  # 가져올 페이지 숫자
     target_URL = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD \
