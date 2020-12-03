@@ -1,5 +1,7 @@
 import tkinter
 from tkinter import *
+from article.articlefProcessing import ArticleProcessing
+from article.timefProcessing import TimeProcessing
 
 class MainGUI:
     def __init__(self):
@@ -36,7 +38,26 @@ class MainGUI:
         label_ment = tkinter.Label(self.root, text="SWEET IT : 짧은 시간들을 모아 IT 지식을 꿀꺽 삼켜봅시다", background="#E4E3E1", font=('Nirmala UI', "15"))
         label_ment.pack(side='bottom', pady=300)
 
+        # label(개수)
+        ArticlePro = ArticleProcessing()
+        article_total = ArticlePro.show_total_article()
+        label_article_total = tkinter.Label(self.root, text=article_total, width=11, background="#F3F3F3", font=('Arial', "60", "bold"))
+        label_article_total.place(x=10,y=570)
+        # label(내가 본 기사 개수)
+        label_article = tkinter.Label(self.root, text="내가 본 기사 개수", width=50, background="#F3F3F3", font=('Arial', "13"))
+        label_article.place(x=50, y=550)
+
+        # label(개수)
+        TimePro = TimeProcessing()
+        time_total = TimePro.show_total_time()
+        label_time_total = tkinter.Label(self.root, text=time_total, width=11, background="#F3F3F3", font=('Arial', "40", "bold"))
+        label_time_total.place(x=650, y=583)
+        # label(내가 본 기사 개수)
+        label_time = tkinter.Label(self.root, text="내가 투자한 시간", width=30, background="#F3F3F3",font=('Arial', "13"))
+        label_time.place(x=680, y=550)
+
         self.root.mainloop()
+
 
     def articleClick(self):
         from GUI.articleGUI import articleGUI

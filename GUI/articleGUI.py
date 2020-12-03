@@ -5,6 +5,7 @@ import time
 from article.articleCrawling import articleCrawling
 from article.articlefProcessing import ArticleProcessing
 from GUI.mainGUI import MainGUI
+# from GUI.noteListGUI import noteListGUI
 
 import tkinter.messagebox
 
@@ -55,8 +56,7 @@ class articleGUI:
         self.left_content_text.place(x=10, y=85)
         self.left_content_text.insert(1.0,self.articleContent)
         self.left_content_text.configure(state='disabled',font=('Arial',15))
-        #self.left_content_label= tkinter.Label(self.left_canvas,width=108,height=40,bg='#FFFFFF', fg='#000000', text=self.articleContent, font=("Arial", 10))
-
+        # go to main
 
     def right_top_bundle(self): # 오른쪽 위 캔버스 묶음
         # canvas
@@ -81,10 +81,15 @@ class articleGUI:
         self.right_bottom_canvas=tkinter.Canvas(self.canvas, bg='#CCB9A8', width=210, height=470,highlightthickness=0)
         self.right_bottom_canvas.place(x=890, y=280)
 
+        # home버튼
+        self.home_bg = tkinter.PhotoImage(file="../image/article_right_bottom_home.gif")
+        self.right_bottom_home = tkinter.Button(self.right_bottom_canvas, command=self.back_to_main ,image=self.home_bg, width=100, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
+        self.right_bottom_home.place(x=55, y=30)
+
         # note버튼
         self.note_bg=tkinter.PhotoImage(file="../image/article_right_bottom_note.gif")
-        self.right_bottom_note=tkinter.Button(self.right_bottom_canvas,image=self.note_bg,width=100,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
-        self.right_bottom_note.place(x=55,y=80)
+        self.right_bottom_note=tkinter.Button(self.right_bottom_canvas, image=self.note_bg,width=100,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
+        self.right_bottom_note.place(x=55,y=105)
         
         # 다 봤어요!
         self.saw_font=tkinter.PhotoImage(file="../image/article_right_bottom_saw.gif")
@@ -177,6 +182,10 @@ class articleGUI:
     def back_to_main(self):
         self.root.destroy()
         MainGUI()
+
+    #병합할때는 이거 #지워서 코드로 돌아가게 할 것
+    #def open_note(self):
+        #noteListGUI()
 
 if __name__=='__main__':
     articleGUI=articleGUI()
