@@ -2,6 +2,7 @@ import sys
 from bs4 import BeautifulSoup
 import urllib.request
 from urllib.parse import quote
+import re
 
 TARGET_URL_BEFORE_PAGE_NUM = "http://news.donga.com/search?p="
 TARGET_URL_BEFORE_KEYWORD = '&query='
@@ -38,12 +39,21 @@ def get_text(URL):
     # 기사의 본문내용을 추출
     for item in content_of_article:
         string_item = str(item.find_all(text=True))
-        print(string_item)
+        clean_text(string_item)
     # 기사 텍스트가 있다면 파일에 쓴다
 
 
+def clean_text(text):
+    cleaned_text = re.sub('[a-zA-Z]', '', text)
+    cleaned_text = re.sub('[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]',
+                          '', cleaned_text)
+    #cleaned_text = re.sub('[0-9]','',cleaned_text)
+    print(cleaned_text)
+
+
+
 def main():
-    keyword = "IoT"  # 검색하고 하는 단어
+    keyword = "밴처기업"  # 검색하고 하는 단어
     page_num = 1  # 가져올 페이지 숫자
     target_URL = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD \
                  + quote(keyword) + TARGET_URL_REST
