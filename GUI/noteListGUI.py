@@ -122,6 +122,3 @@ class noteListGUI:
         
 if __name__ == '__main__':
     noteListGUI = noteListGUI()
-    
-    # text 박스에 scrollbar 추가해야함
-    # treeview 테두리 추가 & 컬럼 색 변경

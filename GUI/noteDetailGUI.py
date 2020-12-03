@@ -38,7 +38,7 @@ class noteDetailGUI:
         btn_modify.place(x=910, y=120)
 
         # entry(글 제목)
-        entry_title = tkinter.Entry(self.root, width=20, background="#FAF7F4", font=("Nirmala UI", "20"), borderwidth=9,
+        entry_title = tkinter.Entry(self.root, width=20, background="#FAF7F4", font=("Nirmala UI", "20"), borderwidth=9, disabledforeground="black",
                                     relief="flat", justify="center")
         entry_title.insert(0, title)
         entry_title.configure(state='disabled')
