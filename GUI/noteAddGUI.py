@@ -14,12 +14,12 @@ class noteAddGUI:
         self.root.resizable(False, False)  # 창 길이 조절 불가능
 
         # background image
-        wall = PhotoImage(file="../image/note_bg.png")
+        wall = PhotoImage(file="../image/note_bg.PNG")
         wall_label = Label(image=wall)
         wall_label.place(x=-2, y=-2)
 
         # PhotoImage(back)
-        img_back = tkinter.PhotoImage(file="../image/button_back.png")
+        img_back = tkinter.PhotoImage(file="../image/button_back.PNG")
         btn_back = tkinter.Button(self.root, image=img_back, relief="solid", highlightthickness=0, borderwidth=0,
                                   command=lambda: self.btnBack())
         btn_back.place(x=10, y=10)
@@ -56,14 +56,14 @@ class noteAddGUI:
 
     # Click event
     def btnSave(self, title, content):
-        from noteListGUI import noteListGUI
+        from GUI.noteListGUI import noteListGUI
         Note.add_note(None, title, content)
         tkinter.messagebox.showinfo("추가 확인", "추가되었습니다")
         self.root.destroy()
         noteListGUI()
 
     def btnBack(self):
-        from noteListGUI import noteListGUI
+        from GUI.noteListGUI import noteListGUI
         self.root.destroy()
         noteListGUI()
 

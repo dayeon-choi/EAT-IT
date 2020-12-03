@@ -6,7 +6,6 @@ class articleGUI:
     def __init__(self):
         CANVAS_SIZE_WIDTH=1100  #canvas 가로 길이
         CANVAS_SIZE_HEIGHT=750  #canvas 세로 길이
-        # self.TITLE_SIZE=CANVAS_SIZE_WIDTH//3    #title 사이즈
 
         # root
         self.root=tkinter.Tk()
@@ -14,7 +13,7 @@ class articleGUI:
         self.root.geometry(str(CANVAS_SIZE_WIDTH)+'x'+str(CANVAS_SIZE_HEIGHT)+"+300+100")
         self.root.resizable(False,False)   #창 길이 조절 불가능
         # basic canvas
-        self.canvas=tkinter.Canvas(self.root,bg='#F3F3F3',width=CANVAS_SIZE_WIDTH,height=CANVAS_SIZE_HEIGHT)
+        self.canvas = tkinter.Canvas(self.root, bg='#F3F3F3', width=CANVAS_SIZE_WIDTH, height=CANVAS_SIZE_HEIGHT)
         self.canvas.pack()
 
         # 오른쪽 위 캔버스 및 그 안의 요소
@@ -75,8 +74,6 @@ class articleGUI:
         self.right_bottom_next=tkinter.Button(self.right_bottom_canvas, image=self.next_bg, width=44, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_next.place(x=151, y=370)
 
-
-
     def timer_toggle(self):
         if self.paused:
             self.paused=False
@@ -91,7 +88,7 @@ class articleGUI:
 
     def timer_run(self):
         if self.paused:
-            print("Timer stop") #타이머는 멈췄으나 아직 시간 데이터는 지워지지 않은 상태 DB넣기는 여기서 하면 될 것 같음
+            #타이머는 멈췄으나 아직 시간 데이터는 지워지지 않은 상태 DB넣기는 여기서 하면 될 것 같음
             return
         delta = int(time.time() - self.oldtime)
         timestr = '{:02}:{:02}'.format(*divmod(delta, 60))

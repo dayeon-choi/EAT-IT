@@ -1,6 +1,6 @@
 import tkinter
 from tkinter import *
-from note import Note
+from note.note import Note
 
 class noteEditGUI:
     def __init__(self, title, content):
@@ -14,12 +14,12 @@ class noteEditGUI:
         self.root.resizable(False, False)  # 창 길이 조절 불가능
 
         # background image
-        wall = PhotoImage(file="../image/note_bg.png")
+        wall = PhotoImage(file="../image/note_bg.PNG")
         wall_label = Label(image=wall)
         wall_label.place(x=-2, y=-2)
 
         # PhotoImage(back)
-        img_back = tkinter.PhotoImage(file="../image/button_back.png")
+        img_back = tkinter.PhotoImage(file="../image/button_back.PNG")
         btn_back = tkinter.Button(self.root, image=img_back, relief="solid", highlightthickness=0, borderwidth=0,
                                   command=lambda: self.btnBack(entry_title.get(), text_con.get("1.0", END)))
         btn_back.place(x=10, y=10)
@@ -55,10 +55,14 @@ class noteEditGUI:
 
     # Click event
     def btnSave(self, title, mTitle, mContent):
+        from GUI.noteListGUI import noteListGUI
         Note.update_note(None, title, mTitle, mContent)
+        tkinter.messagebox.showinfo("수정 확인", "수정되었습니다")
+        self.root.destroy()
+        noteListGUI()
 
     def btnBack(self, title, content):
-        from noteDetailGUI import noteDetailGUI
+        from GUI.noteDetailGUI import noteDetailGUI
         self.root.destroy()
         noteDetailGUI(title, content)
 
