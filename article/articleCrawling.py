@@ -8,7 +8,7 @@ TARGET_URL_BEFORE_KEYWORD = '&query='
 TARGET_URL_REST = '&check_news=1&more=1&sorting=1&search_date=1&v1=&v2=&range=1'
 
 
-def get_link_from_news_title(page_num, URL, output_file):
+def get_link_from_news_title(page_num, URL):
     for i in range(page_num):
         current_page_num = 1 + i * 15
         # 페이지당 15개의 게시물.
@@ -25,11 +25,11 @@ def get_link_from_news_title(page_num, URL, output_file):
         for title in soup.find_all('p', 'tit'):
             title_link = title.select('a')
             article_URL = title_link[0]['href']
-            get_text(article_URL, output_file)
+            get_text(article_URL)
         # 본문 기사가 담긴 URL을 찾기위해
 
 
-def get_text(URL, output_file):
+def get_text(URL):
     source_code_from_url = urllib.request.urlopen(URL)
     # urlllib로 기사 페이지를 요청받습니다.
     soup = BeautifulSoup(source_code_from_url, 'html.parser', from_encoding='utf-8')
@@ -38,19 +38,16 @@ def get_text(URL, output_file):
     # 기사의 본문내용을 추출
     for item in content_of_article:
         string_item = str(item.find_all(text=True))
-        output_file.write(string_item)
+        print(string_item)
     # 기사 텍스트가 있다면 파일에 쓴다
 
 
 def main():
-    keyword = "대통령선거"  # 검색하고 하는 단어
-    page_num = 5  # 가져올 페이지 숫자
-    output_file_name = "out.txt"  # 출력할 파일명
+    keyword = "IoT"  # 검색하고 하는 단어
+    page_num = 1  # 가져올 페이지 숫자
     target_URL = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD \
                  + quote(keyword) + TARGET_URL_REST
-    output_file = open(output_file_name, 'w', -1, "utf-8")
-    get_link_from_news_title(page_num, target_URL, output_file)
-    output_file.close()
+    get_link_from_news_title(page_num, target_URL)
 
 
 if __name__ == '__main__':
