@@ -46,3 +46,29 @@ soup = BeautifulSoup(webpage, 'html.parser')
 for temps in soup.find_all('a',"issue"):
     print('--> ' , temps.get_text())
 print('\n')
+
+# 오늘의 음원 TOP10
+# https://h-glacier.tistory.com/
+
+print('  ○>> #오늘의 #음원 #종합 #TOP10 \n')
+webpage = urllib.request.urlopen('https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EC%9D%8C%EC%9B%90%EC%B0%A8%ED%8A%B8&oquery=%EB%A9%9C%EB%A1%A0%EC%B0%A8%ED%8A%B8&tqi=UrZ0HsprvN8ssK5ZP%2BsssssstVh-314088')
+toptenlist = []
+artistlist = []
+Rank = 10
+soup = BeautifulSoup(webpage, 'html.parser')
+for topten in soup.find_all('span',"tit_area"):
+    toptenlist.append(topten.get_text())
+for artist in soup.find_all('span',"name"):
+    artistlist.append(artist.get_text())
+
+for i in range(Rank):
+    print(' - %2d위  : %s - %s'%(i+1, artistlist[i], toptenlist[i]))
+
+
+# 오늘의 핫토픽
+print('  ○>> #오늘의 #IT #핫토픽 #헤드라인 \n')
+webpage = urllib.request.urlopen('https://news.naver.com/main/home.nhn/')
+soup = BeautifulSoup(webpage, 'html.parser')
+for temps in soup.find_all('span',"writing"):
+    print('--> ' , temps.get_text())
+print('\n')
