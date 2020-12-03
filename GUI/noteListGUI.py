@@ -23,11 +23,11 @@ class noteListGUI:
         wall_label.place(x=-2, y=-2)
 
         # label(노트 목록)
-        label = tkinter.Label(self.root, text="노트 목록", foreground="#ffffff", background="#503A2E", font=("None", "35"))
+        label = tkinter.Label(self.root, text="노트 목록", foreground="#ffffff", background="#503A2E", font=("Nirmala UI", "35", 'bold'))
         label.pack(pady=50)
 
         # button(new)
-        btn_new = tkinter.Button(self.root, text="NEW", width=5, foreground="#F4DBCD", background="#81634E", relief="raised", font=("None", "20"),
+        btn_new = tkinter.Button(self.root, text="NEW", width=5, foreground="#F4DBCD", background="#81634E", relief="raised", font=("Arial", "20"),
                                  command=lambda: self.btnClick())
         btn_new.place(x=950, y=120)
 
@@ -42,9 +42,9 @@ class noteListGUI:
         style.configure("Treeview",
                         background="#F3E9DF",
                         foreground="black",
-                        rowheight=42,
+                        rowheight=55,
                         fieldbackground="silver",
-                        font=("None", "15")
+                        font=("Nirmala UI", "15")
                         )
         # selected color
         style.map('Treeview',
@@ -94,8 +94,8 @@ class noteListGUI:
 
         # Label(글 개수)
         note_num = tkinter.Label(self.root, text="등록된 글의 개수 : " + str(cnt), foreground="#ffffff", background="#503A2E",
-                                 font=("None", "10"), width=20, anchor="e")
-        note_num.place(x=810, y=200)
+                                 font=("Nirmala UI", "10"), width=20, anchor="e")
+        note_num.place(x=820, y=200)
 
         self.root.mainloop()
 
