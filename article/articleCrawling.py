@@ -47,7 +47,7 @@ def get_text(URL):
 
 def clean_text(text,URL):
     cleaned_text = re.sub('[a-zA-Z]', '', text)
-    cleaned_text = re.sub('[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]','', cleaned_text)
+    cleaned_text = re.sub('[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\△"]','', cleaned_text)
     cleaned_text = re.sub('["\t"]','', cleaned_text)
     cleaned_text = re.sub('다 ', '다.\n', cleaned_text)
     cleaned_text = re.sub(' [0-9] ', '', cleaned_text)
@@ -59,9 +59,9 @@ def clean_text(text,URL):
     print(result)
     return result
 
-def articleCrawling(articleIndex=1,keyword="IT 기술"):
+def articleCrawling(articleIndex=1,keyword="IT 신기술"):
     # 검색하고 하는 단어 keyword = "IT 밴처기업"
-    page_num = 5  # 가져올 페이지 숫자
+    page_num = 3  # 가져올 페이지 숫자
     target_URL = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD \
                  + quote(keyword) + TARGET_URL_REST
     result=get_link_from_news_title(page_num, target_URL,articleIndex)

@@ -50,7 +50,6 @@ class articleGUI:
         self.left_content_text=tkinter.Text(self.left_canvas,width=79,height=28)
         self.left_content_text.place(x=10, y=85)
         self.left_content_text.insert(1.0,self.articleContent)
-        print("setting")
         self.left_content_text.configure(state='disabled',font=('Arial',15))
         #self.left_content_label= tkinter.Label(self.left_canvas,width=108,height=40,bg='#FFFFFF', fg='#000000', text=self.articleContent, font=("Arial", 10))
 
@@ -74,28 +73,28 @@ class articleGUI:
 
 
     def right_bottom_bundle(self):  #오른쪽 아래 캔버스 묶음
-        #캔버스
+        # 캔버스
         self.right_bottom_canvas=tkinter.Canvas(self.canvas, bg='#CCB9A8', width=210, height=470,highlightthickness=0)
         self.right_bottom_canvas.place(x=890, y=280)
 
-        #note버튼
+        # note버튼
         self.note_bg=tkinter.PhotoImage(file="../image/article_right_bottom_note.gif")
         self.right_bottom_note=tkinter.Button(self.right_bottom_canvas,image=self.note_bg,width=100,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
         self.right_bottom_note.place(x=55,y=80)
         
-        #다 봤어요!
+        # 다 봤어요!
         self.saw_font=tkinter.PhotoImage(file="../image/article_right_bottom_saw.gif")
         self.saw_label = tkinter.Label(self.right_bottom_canvas,image=self.saw_font,width=135,height=35,highlightthickness=0,borderwidth=0,padx=0,pady=0)
         self.saw_label.place(x=37,y=180)
 
-        #complete버튼
+        # complete버튼
         self.complete_bg=tkinter.PhotoImage(file="../image/article_right_bottom_complete.gif")
         self.right_bottom_complete=tkinter.Button(self.right_bottom_canvas,image=self.complete_bg,width=180,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
         self.right_bottom_complete.place(x=15,y=230)
         
-        #prev버튼(화살표-이전버튼)
+        # prev버튼(화살표-이전버튼)
         self.prev_bg=tkinter.PhotoImage(file="../image/article_right_bottom_prev.gif")
-        self.right_bottom_prev=tkinter.Button(self.right_bottom_canvas, image=self.prev_bg, width=44,height=45, highlightthickness=0, borderwidth=0, padx=0, pady=0)
+        self.right_bottom_prev=tkinter.Button(self.right_bottom_canvas, command=self.articlePrev, image=self.prev_bg, width=44,height=45, highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_prev.place(x=15, y=370)
 
         # next버튼(화살표-이후버튼)
@@ -104,6 +103,7 @@ class articleGUI:
         self.right_bottom_next.place(x=151, y=370)
 
     def articleNext(self):
+        # 다음 기사 가져오기
         self.articleIndex+=1
         self.articleCrawlingArray = articleCrawling(self.articleIndex)
         self.articleURL = self.articleCrawlingArray[0]
@@ -113,6 +113,19 @@ class articleGUI:
         self.left_content_text.delete(1.0,"end")
         self.left_content_text.insert(0.0, self.articleContent)
         self.left_content_text.configure(state='disabled')
+
+    def articlePrev(self):
+        # 이전 기사 가져오기
+        if self.articleIndex!=1:
+            self.articleIndex-=1
+            self.articleCrawlingArray = articleCrawling(self.articleIndex)
+            self.articleURL = self.articleCrawlingArray[0]
+            self.articleContent = self.articleCrawlingArray[1]
+            self.left_url_label.config(text=self.articleURL)
+            self.left_content_text.configure(state='normal')
+            self.left_content_text.delete(1.0,"end")
+            self.left_content_text.insert(0.0, self.articleContent)
+            self.left_content_text.configure(state='disabled')
 
     def timer_toggle(self):
         if self.paused:
