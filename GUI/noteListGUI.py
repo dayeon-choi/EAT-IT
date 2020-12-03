@@ -13,7 +13,7 @@ class noteListGUI:
 
         # root
         self.root = tkinter.Tk()
-        self.root.title("NOTE")
+        self.root.title("노트 목록")
         self.root.geometry(str(CANVAS_SIZE_WIDTH) + 'x' + str(CANVAS_SIZE_HEIGHT))
         self.root.resizable(False, False)  # 창 길이 조절 불가능
 
@@ -27,9 +27,9 @@ class noteListGUI:
         label.pack(pady=50)
 
         # button(new)
-        btn_new = tkinter.Button(self.root, text="NEW", width=5, foreground="#F4DBCD", background="#81634E", relief="raised", font=("Arial", "20"),
+        btn_new = tkinter.Button(self.root, text="NEW", width=7, foreground="#F4DBCD", background="#81634E", relief="raised", font=("Arial", "20"),
                                  command=lambda: self.btnClick())
-        btn_new.place(x=950, y=120)
+        btn_new.place(x=930, y=120)
 
         # PhotoImage(back)
         img_back = tkinter.PhotoImage(file="../image/button_back.PNG")
@@ -73,8 +73,8 @@ class noteListGUI:
         # Formate Columns
         self.note_tree.column("#0", width=0, stretch=NO)
         self.note_tree.column("title", anchor=W, width=280)
-        self.note_tree.column("content", anchor=W, width=280)
-        self.note_tree.column("date", anchor=W, width=280)
+        self.note_tree.column("content", anchor=W, width=350)
+        self.note_tree.column("date", anchor=W, width=200)
 
         # Create Headings
         self.note_tree.heading("#0", text="", anchor=W)
@@ -93,9 +93,9 @@ class noteListGUI:
             cnt += 1
 
         # Label(글 개수)
-        note_num = tkinter.Label(self.root, text="등록된 글의 개수 : " + str(cnt), foreground="#ffffff", background="#503A2E",
-                                 font=("Nirmala UI", "10"), width=20, anchor="e")
-        note_num.place(x=820, y=200)
+        note_num = tkinter.Label(self.root, text="등록된 노트 개수 : " + str(cnt), foreground="#ffffff", background="#503A2E",
+                                 font=("Nirmala UI", "12"), width=20, anchor="e")
+        note_num.place(x=790, y=195)
 
         self.root.mainloop()
 

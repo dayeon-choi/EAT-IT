@@ -9,7 +9,7 @@ class noteAddGUI:
 
         # root
         self.root = tkinter.Tk()
-        self.root.title("NOTE")
+        self.root.title("노트 추가")
         self.root.geometry(str(CANVAS_SIZE_WIDTH) + 'x' + str(CANVAS_SIZE_HEIGHT))
         self.root.resizable(False, False)  # 창 길이 조절 불가능
 
@@ -25,7 +25,7 @@ class noteAddGUI:
         btn_back.place(x=10, y=10)
 
         # label(노트 추가)
-        label = tkinter.Label(self.root, text="노트 추가",foreground="#ffffff", background="#503A2E", font=("Nirmala UI", "35"))
+        label = tkinter.Label(self.root, text="노트 추가",foreground="#ffffff", background="#503A2E", font=("Nirmala UI", "35", "bold"))
         label.pack(pady=50)
 
         # entry(title)
@@ -41,17 +41,10 @@ class noteAddGUI:
         text_con.insert(tkinter.CURRENT, "내용을 입력하세요")
         text_con.place(x=99, y=290)
 
-        scroll_y = tkinter.Scrollbar(self.root, orient="vertical", command=text_con.yview)
-        scroll_y.place(x=935, y=525)
-
         # button(save)
         btn_new = tkinter.Button(self.root, text="SAVE", width=8 , foreground="#000000", background="#CCB9A8", relief="raised",
                                  font=("Arial", "20"), command=lambda: self.btnSave(entry_title.get(), text_con.get("1.0", END)))
         btn_new.place(x=910, y=120)
-
-
-        text_con.configure(yscrollcommand=scroll_y.set)
-
 
         self.root.mainloop()
 
