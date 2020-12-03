@@ -28,7 +28,8 @@ def get_link_from_news_title(page_num, URL,articleIndex):
             #이거 따로 띄워주기
             article_URL = title_link[0]['href']
             if count==articleIndex:
-                get_text(article_URL)
+                result=get_text(article_URL)
+                return result
             count+=1
 
 def get_text(URL):
@@ -40,7 +41,8 @@ def get_text(URL):
     # 기사의 본문내용을 추출
     for item in content_of_article:
         string_item = str(item.find_all(text=True))
-        clean_text(string_item,URL)
+        result=clean_text(string_item,URL)
+        return result
     # 기사 텍스트가 있다면 파일에 쓴다
 
 def clean_text(text,URL):
@@ -59,10 +61,11 @@ def clean_text(text,URL):
 
 def articleCrawling(articleIndex=1,keyword="IT 밴처기업"):
     # 검색하고 하는 단어 keyword = "IT 밴처기업"
-    page_num = 1  # 가져올 페이지 숫자
+    page_num = 5  # 가져올 페이지 숫자
     target_URL = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD \
                  + quote(keyword) + TARGET_URL_REST
-    get_link_from_news_title(page_num, target_URL,articleIndex)
+    result=get_link_from_news_title(page_num, target_URL,articleIndex)
+    return result
 
-if __name__ == '__main__':
-    articleCrawling()
+# if __name__ == '__main__':
+#      articleCrawling()
