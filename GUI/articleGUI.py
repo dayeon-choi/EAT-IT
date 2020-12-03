@@ -87,12 +87,18 @@ class articleGUI:
             self.right_top_time_btn.config(image=self.timer_start)
 
     def timer_run(self):
+        # stop 버튼 눌렀을 때
         if self.paused:
-            #타이머는 멈췄으나 아직 시간 데이터는 지워지지 않은 상태 DB넣기는 여기서 하면 될 것 같음
+            # 타이머 file에 추가 저장
+            f=open("../article/timef.txt",'a')
+            f.write(self.timestr+"\n")
+            f.close()
+            print("시간이 정상적으로 저장되었습니다. ["+self.timestr+"]")
             return
-        delta = int(time.time() - self.oldtime)
-        timestr = '{:02}:{:02}'.format(*divmod(delta, 60))
-        self.right_top_time_label.config(text=timestr)
+        # start 버튼 눌렀을 때 or 타이머 시간 갱신
+        self.delta = int(time.time() - self.oldtime)
+        self.timestr = '{:02}:{:02}'.format(*divmod(self.delta, 60))
+        self.right_top_time_label.config(text=self.timestr)
         self.right_top_time_label.after(1000,self.timer_run)
 
 if __name__=='__main__':
