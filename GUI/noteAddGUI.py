@@ -25,27 +25,28 @@ class noteAddGUI:
         btn_back.place(x=10, y=10)
 
         # label(노트 추가)
-        label = tkinter.Label(self.root, text="노트 추가",foreground="#ffffff", background="#503A2E", font=("None", "35"))
+        label = tkinter.Label(self.root, text="노트 추가",foreground="#ffffff", background="#503A2E", font=("Nirmala UI", "35"))
         label.pack(pady=50)
 
         # entry(title)
-        entry_title = tkinter.Entry(self.root, width=51, background="#FAF7F4", font=("None", "20"), borderwidth=9,
+        entry_title = tkinter.Entry(self.root, width=59, background="#FAF7F4", font=("Nirmala UI", "20"), borderwidth=9,
                                     relief="flat")
         entry_title.insert(0, "제목을 입력하세요")
-        entry_title.place(x=132, y=210)
+        # entry_title.place(x=132, y=210)
+        entry_title.place(x=99, y=210)
 
         # text(content)
-        text_con = tkinter.Text(self.root, width=52, height=11, background="#FAF7F4", wrap='word', font=("None", "20"),
+        text_con = tkinter.Text(self.root, width=60, height=9, background="#FAF7F4", wrap='word', font=("Nirmala UI", "20"),
                                 spacing1=7)
         text_con.insert(tkinter.CURRENT, "내용을 입력하세요")
-        text_con.place(x=132, y=280)
+        text_con.place(x=99, y=290)
 
         scroll_y = tkinter.Scrollbar(self.root, orient="vertical", command=text_con.yview)
         scroll_y.place(x=935, y=525)
 
         # button(save)
         btn_new = tkinter.Button(self.root, text="SAVE", width=8 , foreground="#000000", background="#CCB9A8", relief="raised",
-                                 font=("None", "20"), command=lambda: self.btnSave(entry_title.get(), text_con.get("1.0", END)))
+                                 font=("Arial", "20"), command=lambda: self.btnSave(entry_title.get(), text_con.get("1.0", END)))
         btn_new.place(x=910, y=120)
 
 

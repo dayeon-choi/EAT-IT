@@ -27,22 +27,22 @@ class noteDetailGUI:
                                   command=lambda: self.btnBack())
         btn_back.place(x=10, y=10)
 
-        # entry(글 제목)
-        entry_title = tkinter.Entry(self.root, width=20, background="#FAF7F4", font=("None", "20"), borderwidth=9,
-                                    relief="flat", justify="center")
-        entry_title.insert(0, title)
-        entry_title.configure(state='disabled')
-        entry_title.pack(pady=50)
-
         # button(delete)
         btn_delete = tkinter.Button(self.root, text="DELETE", width=8, foreground="#000000", background="#B99D7A",
-                                 relief="raised", font=("None", "20"), command=lambda: self.btnDelete(title))
+                                 relief="raised", font=("Arial", "20"), command=lambda: self.btnDelete(title))
         btn_delete.place(x=750, y=120)
 
         # button(modify)
         btn_modify = tkinter.Button(self.root, text="MODIFY", width=8, foreground="#000000", background="#EDBC83",
-                                 relief="raised", font=("None", "20"), command=lambda: self.btnModify(entry_title.get(), text_con.get("1.0", END)))
+                                 relief="raised", font=("Arial", "20"), command=lambda: self.btnModify(entry_title.get(), text_con.get("1.0", END)))
         btn_modify.place(x=910, y=120)
+
+        # entry(글 제목)
+        entry_title = tkinter.Entry(self.root, width=20, background="#FAF7F4", font=("Nirmala UI", "20"), borderwidth=9,
+                                    relief="flat", justify="center")
+        entry_title.insert(0, title)
+        entry_title.configure(state='disabled')
+        entry_title.pack(pady=50)
 
         # text(content)
         text_frame = Frame(self.root)
@@ -51,11 +51,11 @@ class noteDetailGUI:
         text_scroll = Scrollbar(text_frame)
         text_scroll.pack(side=RIGHT, fill=Y)
 
-        text_con = tkinter.Text(self.root, width=52, height=13, background="#FAF7F4", wrap='word', font=("None", "20"),
+        text_con = tkinter.Text(self.root, width=60, height=11, background="#FAF7F4", wrap='word', font=("Nirmala UI", "20"),
                                 spacing1=7, yscrollcommand=text_scroll.set)
         text_con.insert(tkinter.CURRENT, content)
         text_con.configure(state='disabled')
-        text_con.place(x=132, y=210)
+        text_con.place(x=99, y=210)
 
         text_scroll.config(command=text_con.yview)
 

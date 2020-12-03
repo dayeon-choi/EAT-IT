@@ -1,7 +1,6 @@
 import tkinter
 from tkinter import *
 
-
 class MainGUI:
     def __init__(self):
         CANVAS_SIZE_WIDTH = 1100  # canvas 가로 길이
@@ -16,26 +15,26 @@ class MainGUI:
         # background image
         wall = PhotoImage(file="../image/main.PNG")
         wall_label = Label(image=wall)
-        wall_label.place(x=-2, y=-2)
+        wall_label.place(x=-3, y=0)
 
         # button(HOME)
         btn_home = tkinter.Button(self.root, text="HOME", width=23, height=2, foreground="#000000", background="#786255",
-                                    relief="raised", font=("None", "20"), borderwidth=0)
+                                    relief="raised", font=('Arial', "20"), borderwidth=0)
         btn_home.place(x=0, y=0)
 
         # button(ARTICLE)
         btn_article = tkinter.Button(self.root, text="ARTICLE", width=23, height=2, foreground="#000000", background="#CCB9A8",
-                                    relief="raised", font=("None", "20"), borderwidth=0, command=lambda: self.articleClick() )
+                                    relief="raised", font=("Arial", "20"), borderwidth=0, command=lambda: self.articleClick() )
         btn_article.pack(side="top")
 
         # button(NOTE)
         btn_note = tkinter.Button(self.root, text="NOTE", width=23, height=2, foreground="#000000", background="#CCB9A8",
-                                    relief="raised", font=("None", "20"), borderwidth=0, command=lambda: self.noteClick())
+                                    relief="raised", font=("Arial", "20"), borderwidth=0, command=lambda: self.noteClick())
         btn_note.place(x=733, y=0)
 
         # label(한줄 문구)
-        label_ment = tkinter.Label(self.root, text="SWEET IT : 짧은 시간들을 모아 IT 지식을 꿀꺽 삼켜봅시다", background="#E4E3E1", font=("None", "15"))
-        label_ment.pack(side='bottom', pady=100)
+        label_ment = tkinter.Label(self.root, text="SWEET IT : 짧은 시간들을 모아 IT 지식을 꿀꺽 삼켜봅시다", background="#E4E3E1", font=('Nirmala UI', "15"))
+        label_ment.pack(side='bottom', pady=300)
 
         self.root.mainloop()
 
