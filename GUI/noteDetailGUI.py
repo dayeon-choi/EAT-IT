@@ -12,7 +12,7 @@ class noteDetailGUI:
 
         # root
         self.root = tkinter.Tk()
-        self.root.title("NOTE")
+        self.root.title("상세보기")
         self.root.geometry(str(CANVAS_SIZE_WIDTH) + 'x' + str(CANVAS_SIZE_HEIGHT))
         self.root.resizable(False, False)  # 창 길이 조절 불가능
 
@@ -48,16 +48,11 @@ class noteDetailGUI:
         text_frame = Frame(self.root)
         text_frame.place(x=132, y=210)
 
-        text_scroll = Scrollbar(text_frame)
-        text_scroll.pack(side=RIGHT, fill=Y)
-
         text_con = tkinter.Text(self.root, width=60, height=11, background="#FAF7F4", wrap='word', font=("Nirmala UI", "20"),
-                                spacing1=7, yscrollcommand=text_scroll.set)
+                                spacing1=7)
         text_con.insert(tkinter.CURRENT, content)
         text_con.configure(state='disabled')
         text_con.place(x=99, y=210)
-
-        text_scroll.config(command=text_con.yview)
 
         self.root.mainloop()
 

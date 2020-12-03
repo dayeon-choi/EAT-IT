@@ -9,7 +9,7 @@ class noteEditGUI:
 
         # root
         self.root = tkinter.Tk()
-        self.root.title("NOTE")
+        self.root.title("노트 수정")
         self.root.geometry(str(CANVAS_SIZE_WIDTH) + 'x' + str(CANVAS_SIZE_HEIGHT))
         self.root.resizable(False, False)  # 창 길이 조절 불가능
 
@@ -39,11 +39,6 @@ class noteEditGUI:
                                 font=("Nirmala UI", "20"), spacing1=7)
         text_con.insert(tkinter.CURRENT, content)
         text_con.place(x=99, y=290)
-
-        scroll_y = tkinter.Scrollbar(self.root, orient="vertical", command=text_con.yview)
-        scroll_y.place(x=935, y=525)
-
-        text_con.configure(yscrollcommand=scroll_y.set)
 
         # button(save)
         btn_new = tkinter.Button(self.root, text="SAVE", width=8, foreground="#000000", background="#CCB9A8", relief="raised",

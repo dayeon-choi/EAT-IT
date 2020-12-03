@@ -8,7 +8,7 @@ class MainGUI:
 
         # root
         self.root = tkinter.Tk()
-        self.root.title("Main")
+        self.root.title("EAT-IT")
         self.root.geometry(str(CANVAS_SIZE_WIDTH) + 'x' + str(CANVAS_SIZE_HEIGHT))
         self.root.resizable(False, False)  # 창 길이 조절 불가능
 
