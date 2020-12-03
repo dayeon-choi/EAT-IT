@@ -36,7 +36,7 @@ class noteListGUI:
         btn_back = tkinter.Button(self.root, image=img_back, relief="solid", highlightthickness=0, borderwidth=0,
                                   command=lambda: self.btnBack())
         btn_back.place(x=10, y=10)
-
+        
         # Add treeview Style
         style = ttk.Style()
         style.configure("Treeview",
@@ -119,7 +119,7 @@ class noteListGUI:
     def btnBack(self):
         self.root.destroy()
         MainGUI()
-
+        
 if __name__ == '__main__':
     noteListGUI = noteListGUI()
     

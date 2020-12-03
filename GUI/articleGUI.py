@@ -74,23 +74,6 @@ class articleGUI:
         self.right_bottom_next=tkinter.Button(self.right_bottom_canvas, image=self.next_bg, width=44, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_next.place(x=151, y=370)
 
-    #def update_clock(self):
-        #text가 겹치는 것을 방지를 위해 canvas 지우기
-        # self.right_top_canvas.delete('all')
-        #
-        # # canvas 다시 세팅
-        # self.right_top_canvas = tkinter.Canvas(self.canvas, width=210, height=280,highlightthickness=0)  # highlightthickness는 canvas 회색 테두리 없앰
-        # self.right_top_canvas.place(x=890, y=0)
-        # self.right_top_canvas_bg = tkinter.PhotoImage(file="../image/article_right_top_bg.PNG")
-        # self.right_top_canvas.create_image(0, 0, image=self.right_top_canvas_bg, anchor='nw')
-        # self.right_top_start = tkinter.Button(self.right_top_canvas, width=10, height=5, highlightthickness=0,borderwidth=0, padx=0, pady=0)
-        # self.right_top_start.place(x=100, y=130)
-
-        #time
-        # self.now=time.strftime("%H:%M:%S")
-        # self.right_top_canvas.create_text(100, 100, text=self.now, font=("None", 25, 'bold'), fill="#FBDDC5")
-        # self.root.after(1000,self.update_clock)
-
     def timer_toggle(self):
         if self.paused:
             self.paused=False
@@ -105,13 +88,12 @@ class articleGUI:
 
     def timer_run(self):
         if self.paused:
+            #타이머는 멈췄으나 아직 시간 데이터는 지워지지 않은 상태 DB넣기는 여기서 하면 될 것 같음
             return
         delta = int(time.time() - self.oldtime)
         timestr = '{:02}:{:02}'.format(*divmod(delta, 60))
         self.right_top_time_label.config(text=timestr)
         self.right_top_time_label.after(1000,self.timer_run)
-
-
 
 if __name__=='__main__':
     articleGUI=articleGUI()
