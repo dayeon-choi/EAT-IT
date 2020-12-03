@@ -1,9 +1,9 @@
 import tkinter
 from tkinter import *
-from note import Note
+from note.note import Note
 
-class noteEditGUI:
-    def __init__(self, title, content):
+class noteAddGUI:
+    def __init__(self):
         CANVAS_SIZE_WIDTH = 1100  # canvas 가로 길이
         CANVAS_SIZE_HEIGHT = 750  # canvas 세로 길이
 
@@ -21,46 +21,51 @@ class noteEditGUI:
         # PhotoImage(back)
         img_back = tkinter.PhotoImage(file="../image/button_back.PNG")
         btn_back = tkinter.Button(self.root, image=img_back, relief="solid", highlightthickness=0, borderwidth=0,
-                                  command=lambda: self.btnBack(entry_title.get(), text_con.get("1.0", END)))
+                                  command=lambda: self.btnBack())
         btn_back.place(x=10, y=10)
 
-        # label(노트 수정)
-        label = tkinter.Label(self.root, text="노트 수정", foreground="#ffffff", background="#503A2E", font=("None", "35"))
+        # label(노트 추가)
+        label = tkinter.Label(self.root, text="노트 추가",foreground="#ffffff", background="#503A2E", font=("None", "35"))
         label.pack(pady=50)
 
         # entry(title)
         entry_title = tkinter.Entry(self.root, width=51, background="#FAF7F4", font=("None", "20"), borderwidth=9,
                                     relief="flat")
-        entry_title.insert(0, title)
+        entry_title.insert(0, "제목을 입력하세요")
         entry_title.place(x=132, y=210)
 
         # text(content)
         text_con = tkinter.Text(self.root, width=52, height=11, background="#FAF7F4", wrap='word', font=("None", "20"),
                                 spacing1=7)
-        text_con.insert(tkinter.CURRENT, content)
+        text_con.insert(tkinter.CURRENT, "내용을 입력하세요")
         text_con.place(x=132, y=280)
 
         scroll_y = tkinter.Scrollbar(self.root, orient="vertical", command=text_con.yview)
         scroll_y.place(x=935, y=525)
 
-        text_con.configure(yscrollcommand=scroll_y.set)
-
         # button(save)
         btn_new = tkinter.Button(self.root, text="SAVE", width=8 , foreground="#000000", background="#CCB9A8", relief="raised",
-                                 font=("None", "20"), command=lambda: self.btnSave(title, entry_title.get(), text_con.get("1.0", END)))
+                                 font=("None", "20"), command=lambda: self.btnSave(entry_title.get(), text_con.get("1.0", END)))
         btn_new.place(x=910, y=120)
+
+
+        text_con.configure(yscrollcommand=scroll_y.set)
 
 
         self.root.mainloop()
 
     # Click event
-    def btnSave(self, title, mTitle, mContent):
-        Note.update_note(None, title, mTitle, mContent)
-
-    def btnBack(self, title, content):
-        from noteDetailGUI import noteDetailGUI
+    def btnSave(self, title, content):
+        from GUI.noteListGUI import noteListGUI
+        Note.add_note(None, title, content)
+        tkinter.messagebox.showinfo("추가 확인", "추가되었습니다")
         self.root.destroy()
-        noteDetailGUI(title, content)
+        noteListGUI()
+
+    def btnBack(self):
+        from GUI.noteListGUI import noteListGUI
+        self.root.destroy()
+        noteListGUI()
 
 if __name__ == '__main__':
-    noteEditGUI = noteEditGUI()
+    noteAddGUI = noteAddGUI()

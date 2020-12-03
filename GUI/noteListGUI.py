@@ -2,11 +2,11 @@ import tkinter
 from tkinter import *
 from tkinter import ttk
 from DB.noteDB import noteDB
-from noteAddGUI import noteAddGUI
-from noteDetailGUI import noteDetailGUI
+from GUI.noteAddGUI import noteAddGUI
+from GUI.noteDetailGUI import noteDetailGUI
+from GUI.mainGUI import MainGUI
 
 class noteListGUI:
-
     def __init__(self):
         CANVAS_SIZE_WIDTH = 1100  # canvas 가로 길이
         CANVAS_SIZE_HEIGHT = 750  # canvas 세로 길이
@@ -31,12 +31,18 @@ class noteListGUI:
                                  command=lambda: self.btnClick())
         btn_new.place(x=950, y=120)
 
+        # PhotoImage(back)
+        img_back = tkinter.PhotoImage(file="../image/button_back.PNG")
+        btn_back = tkinter.Button(self.root, image=img_back, relief="solid", highlightthickness=0, borderwidth=0,
+                                  command=lambda: self.btnBack())
+        btn_back.place(x=10, y=10)
+
         # Add treeview Style
         style = ttk.Style()
         style.configure("Treeview",
                         background="#F3E9DF",
                         foreground="black",
-                        rowheight=35,
+                        rowheight=42,
                         fieldbackground="silver",
                         font=("None", "15")
                         )
@@ -66,15 +72,17 @@ class noteListGUI:
 
         # Formate Columns
         self.note_tree.column("#0", width=0, stretch=NO)
-        self.note_tree.column("title", anchor=W, width=200)
-        self.note_tree.column("content", anchor=W, width=200)
-        self.note_tree.column("date", anchor=W, width=200)
+        self.note_tree.column("title", anchor=W, width=280)
+        self.note_tree.column("content", anchor=W, width=280)
+        self.note_tree.column("date", anchor=W, width=280)
 
         # Create Headings
         self.note_tree.heading("#0", text="", anchor=W)
         self.note_tree.heading("title", text="제목(title)", anchor=W)
         self.note_tree.heading("content", text="내용(content)", anchor=W)
         self.note_tree.heading("date", text="날짜(date)", anchor=W)
+
+        self.note_tree.configure(selectmode='browse', show='tree')
 
         # Add data
         data = sorted(noteDB.find(self), key=lambda date: date[2])
@@ -84,8 +92,12 @@ class noteListGUI:
             self.note_tree.insert(parent='', index='end', iid=cnt, text="", value=(record[0], record[1], record[2]))
             cnt += 1
 
-        self.root.mainloop()
+        # Label(글 개수)
+        note_num = tkinter.Label(self.root, text="등록된 글의 개수 : " + str(cnt), foreground="#ffffff", background="#503A2E",
+                                 font=("None", "10"), width=20, anchor="e")
+        note_num.place(x=810, y=200)
 
+        self.root.mainloop()
 
     # Click event
     def btnClick(self):
@@ -104,7 +116,12 @@ class noteListGUI:
         if self.note_tree.identify_region(event.x, event.y) == "separator":
             return "break"
 
+    def btnBack(self):
+        self.root.destroy()
+        MainGUI()
+
 if __name__ == '__main__':
     noteListGUI = noteListGUI()
     
     # text 박스에 scrollbar 추가해야함
+    # treeview 테두리 추가 & 컬럼 색 변경
