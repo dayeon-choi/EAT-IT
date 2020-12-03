@@ -1,9 +1,11 @@
 import tkinter
+import webbrowser
 import tkinter.font as tkFont
 import time
 from article.articleCrawling import articleCrawling
-import webbrowser
 from article.articlefProcessing import ArticleProcessing
+from GUI.mainGUI import MainGUI
+
 import tkinter.messagebox
 
 class articleGUI:
@@ -171,6 +173,10 @@ class articleGUI:
 
     def callback(self,event):
         webbrowser.open_new(self.articleURL)
+
+    def back_to_main(self):
+        self.root.destroy()
+        MainGUI()
 
 if __name__=='__main__':
     articleGUI=articleGUI()
