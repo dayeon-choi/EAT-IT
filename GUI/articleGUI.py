@@ -1,7 +1,6 @@
 import tkinter
 import tkinter.font as tkFont
 import time
-from article.timer import Timer
 
 class articleGUI:
     def __init__(self):
@@ -90,9 +89,9 @@ class articleGUI:
     def timer_run(self):
         if self.paused:
             #타이머는 멈췄으나 아직 시간 데이터는 지워지지 않은 상태 DB넣기는 여기서 하면 될 것 같음
-            Timer.add_time(None, self.timestr)
-            tkinter.messagebox.showinfo("추가 확인", "추가되었습니다")
-            self.root.destroy()
+            f=open("../article/timef.txt",'a')
+            f.write(self.timestr+"\n")
+            print("시간이 저장되었습니다."+self.timestr)
             return
         self.delta = int(time.time() - self.oldtime)
         self.timestr = '{:02}:{:02}'.format(*divmod(self.delta, 60))
