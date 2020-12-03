@@ -3,6 +3,8 @@ import tkinter.font as tkFont
 import time
 from article.articleCrawling import articleCrawling
 import webbrowser
+from article.articlefProcessing import ArticleProcessing
+import tkinter.messagebox
 
 class articleGUI:
     def __init__(self):
@@ -89,7 +91,7 @@ class articleGUI:
 
         # complete버튼
         self.complete_bg=tkinter.PhotoImage(file="../image/article_right_bottom_complete.gif")
-        self.right_bottom_complete=tkinter.Button(self.right_bottom_canvas,image=self.complete_bg,width=180,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
+        self.right_bottom_complete=tkinter.Button(self.right_bottom_canvas,command=self.articleReadDone,image=self.complete_bg,width=180,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
         self.right_bottom_complete.place(x=15,y=230)
         
         # prev버튼(화살표-이전버튼)
@@ -101,6 +103,19 @@ class articleGUI:
         self.next_bg=tkinter.PhotoImage(file="../image/article_right_bottom_next.gif")
         self.right_bottom_next=tkinter.Button(self.right_bottom_canvas,command=self.articleNext, image=self.next_bg, width=44, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_next.place(x=151, y=370)
+
+    def articleReadDone(self):
+        strURL=str(self.articleURL)
+        ArticlePro=ArticleProcessing()
+        false_or_true=ArticlePro.the_article_is_new(strURL)
+        if false_or_true:
+            # articleRead file에 추가 저장
+            f = open("../article/articleReadf.txt", 'a')
+            f.write(str(self.articleURL)+ "\n")
+            f.close()
+            print("읽은 기사의 URL이 정상적으로 저장되었습니다. ["+self.articleURL+"]")
+        else:
+            tkinter.messagebox.showinfo("어!","이미 이전에 읽으신 기사입니다.")
 
     def articleNext(self):
         # 다음 기사 가져오기
