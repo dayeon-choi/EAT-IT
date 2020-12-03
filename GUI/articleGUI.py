@@ -16,6 +16,8 @@ class articleGUI:
         self.canvas = tkinter.Canvas(self.root, bg='#F3F3F3', width=CANVAS_SIZE_WIDTH, height=CANVAS_SIZE_HEIGHT)
         self.canvas.pack()
 
+        # 왼쪽 캔버스 및 그 안의 요소
+        self.left_bundle()
         # 오른쪽 위 캔버스 및 그 안의 요소
         self.right_top_bundle()
         # #오른쪽 아래 캔버스 및 그 안의 요소
@@ -23,6 +25,8 @@ class articleGUI:
 
         self.root.mainloop()
 
+    def left_bundle(self):  #왼쪽 캔버스 묶음
+        pass
 
     def right_top_bundle(self): # 오른쪽 위 캔버스 묶음
         # canvas
