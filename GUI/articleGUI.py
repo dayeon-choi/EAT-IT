@@ -82,7 +82,7 @@ class articleGUI:
 
         # home버튼
         self.home_bg = tkinter.PhotoImage(file="../image/article_right_bottom_home.gif")
-        self.right_bottom_home = tkinter.Button(self.right_bottom_canvas, command=self.back_to_main ,image=self.home_bg, width=100, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
+        self.right_bottom_home = tkinter.Button(self.right_bottom_canvas, command=self.back_to_main, image=self.home_bg, width=100, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_home.place(x=55, y=30)
 
         # note버튼
@@ -179,13 +179,14 @@ class articleGUI:
         webbrowser.open_new(self.articleURL)
 
     def back_to_main(self):
+        self.p.terminate()
         self.root.destroy()
         MainGUI()
 
     #병합할때는 이거 #지워서 코드로 돌아가게 할 것
     def open_note(self):
-        p = Process(target=noteListGUI)
-        p.start()
+        self.p = Process(target=noteListGUI)
+        self.p.start()
 
 if __name__=='__main__':
     articleGUI=articleGUI()
