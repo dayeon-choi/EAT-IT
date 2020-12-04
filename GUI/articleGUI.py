@@ -5,7 +5,7 @@ import time
 from article.articleCrawling import articleCrawling
 from article.articlefProcessing import ArticleProcessing
 from GUI.mainGUI import MainGUI
-# from GUI.noteListGUI import noteListGUI
+from GUI.noteListGUI import noteListGUI
 
 import tkinter.messagebox
 
@@ -88,7 +88,7 @@ class articleGUI:
 
         # note버튼
         self.note_bg=tkinter.PhotoImage(file="../image/article_right_bottom_note.gif")
-        self.right_bottom_note=tkinter.Button(self.right_bottom_canvas, image=self.note_bg,width=100,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
+        self.right_bottom_note=tkinter.Button(self.right_bottom_canvas, command=self.open_note,image=self.note_bg,width=100,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
         self.right_bottom_note.place(x=55,y=105)
         
         # 다 봤어요!
@@ -181,11 +181,11 @@ class articleGUI:
 
     def back_to_main(self):
         self.root.destroy()
+        self.noteListGUI.root.destory()
         MainGUI()
 
-    #병합할때는 이거 #지워서 코드로 돌아가게 할 것
-    #def open_note(self):
-        #noteListGUI()
+    def open_note(self):
+        noteListGUI()
 
 if __name__=='__main__':
     articleGUI=articleGUI()
