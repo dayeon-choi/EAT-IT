@@ -1,6 +1,13 @@
 import tkinter
+import webbrowser
 import tkinter.font as tkFont
 import time
+from article.articleCrawling import articleCrawling
+from article.articlefProcessing import ArticleProcessing
+from GUI.mainGUI import MainGUI
+# from GUI.noteListGUI import noteListGUI
+
+import tkinter.messagebox
 
 class articleGUI:
     def __init__(self):
@@ -16,6 +23,13 @@ class articleGUI:
         self.canvas = tkinter.Canvas(self.root, bg='#F3F3F3', width=CANVAS_SIZE_WIDTH, height=CANVAS_SIZE_HEIGHT)
         self.canvas.pack()
 
+        #article
+        self.articleURL=''
+        self.articleContent=''
+        self.articleIndex=1
+
+        # 왼쪽 캔버스 및 그 안의 요소
+        self.left_bundle()
         # 오른쪽 위 캔버스 및 그 안의 요소
         self.right_top_bundle()
         # #오른쪽 아래 캔버스 및 그 안의 요소
@@ -23,6 +37,26 @@ class articleGUI:
 
         self.root.mainloop()
 
+    def left_bundle(self):  #왼쪽 캔버스 묶음
+        # canvas
+        self.left_canvas = tkinter.Canvas(self.canvas, width=890, height=750,highlightthickness=0)  # highlightthickness는 canvas 회색 테두리 없앰
+        self.left_canvas.place(x=0, y=0)
+        # 크롤링 결과
+        self.articleCrawlingArray=articleCrawling()
+        self.articleURL=self.articleCrawlingArray[0]
+        self.articleContent=self.articleCrawlingArray[1]
+        # URL Label
+        self.left_url_top = tkinter.Label(self.left_canvas,width=108,height=2,bg='#503A2E', fg='#FBDDC5', text="웹 페이지에서 직접 기사를 보고 싶다면? 아래 링크를 클릭!", font=("None", 10))
+        self.left_url_top.place(x=10,y=5)
+        self.left_url_label = tkinter.Label(self.left_canvas,width=108,height=2,bg='#786255', fg='#FBDDC5', text=self.articleURL, font=("Arial", 10))
+        self.left_url_label.bind("<Button-1>",self.callback)
+        self.left_url_label.place(x=10, y=37)
+        # Content Label
+        self.left_content_text=tkinter.Text(self.left_canvas,width=79,height=28)
+        self.left_content_text.place(x=10, y=85)
+        self.left_content_text.insert(1.0,self.articleContent)
+        self.left_content_text.configure(state='disabled',font=('Arial',15))
+        # go to main
 
     def right_top_bundle(self): # 오른쪽 위 캔버스 묶음
         # canvas
@@ -42,37 +76,78 @@ class articleGUI:
         self.paused=True    #start안한상태
 
 
-
     def right_bottom_bundle(self):  #오른쪽 아래 캔버스 묶음
-        #캔버스
+        # 캔버스
         self.right_bottom_canvas=tkinter.Canvas(self.canvas, bg='#CCB9A8', width=210, height=470,highlightthickness=0)
         self.right_bottom_canvas.place(x=890, y=280)
 
-        #note버튼
+        # home버튼
+        self.home_bg = tkinter.PhotoImage(file="../image/article_right_bottom_home.gif")
+        self.right_bottom_home = tkinter.Button(self.right_bottom_canvas, command=self.back_to_main ,image=self.home_bg, width=100, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
+        self.right_bottom_home.place(x=55, y=30)
+
+        # note버튼
         self.note_bg=tkinter.PhotoImage(file="../image/article_right_bottom_note.gif")
-        self.right_bottom_note=tkinter.Button(self.right_bottom_canvas,image=self.note_bg,width=100,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
-        self.right_bottom_note.place(x=55,y=80)
+        self.right_bottom_note=tkinter.Button(self.right_bottom_canvas, image=self.note_bg,width=100,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
+        self.right_bottom_note.place(x=55,y=105)
         
-        #다 봤어요!
+        # 다 봤어요!
         self.saw_font=tkinter.PhotoImage(file="../image/article_right_bottom_saw.gif")
-        #self.saw_label=tkinter.Label(self.right_bottom_canvas,text="다 봤어요!",font=(None,25),fg='#000000',bg='#CCB9A8')
         self.saw_label = tkinter.Label(self.right_bottom_canvas,image=self.saw_font,width=135,height=35,highlightthickness=0,borderwidth=0,padx=0,pady=0)
         self.saw_label.place(x=37,y=180)
 
-        #complete버튼
+        # complete버튼
         self.complete_bg=tkinter.PhotoImage(file="../image/article_right_bottom_complete.gif")
-        self.right_bottom_complete=tkinter.Button(self.right_bottom_canvas,image=self.complete_bg,width=180,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
+        self.right_bottom_complete=tkinter.Button(self.right_bottom_canvas,command=self.articleReadDone,image=self.complete_bg,width=180,height=45,highlightthickness=0,borderwidth=0,padx=0,pady=0)
         self.right_bottom_complete.place(x=15,y=230)
         
-        #prev버튼(화살표-이전버튼)
+        # prev버튼(화살표-이전버튼)
         self.prev_bg=tkinter.PhotoImage(file="../image/article_right_bottom_prev.gif")
-        self.right_bottom_prev=tkinter.Button(self.right_bottom_canvas, image=self.prev_bg, width=44,height=45, highlightthickness=0, borderwidth=0, padx=0, pady=0)
+        self.right_bottom_prev=tkinter.Button(self.right_bottom_canvas, command=self.articlePrev, image=self.prev_bg, width=44,height=45, highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_prev.place(x=15, y=370)
 
         # next버튼(화살표-이후버튼)
         self.next_bg=tkinter.PhotoImage(file="../image/article_right_bottom_next.gif")
-        self.right_bottom_next=tkinter.Button(self.right_bottom_canvas, image=self.next_bg, width=44, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
+        self.right_bottom_next=tkinter.Button(self.right_bottom_canvas,command=self.articleNext, image=self.next_bg, width=44, height=45,highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_bottom_next.place(x=151, y=370)
+
+    def articleReadDone(self):
+        strURL=str(self.articleURL)
+        ArticlePro=ArticleProcessing()
+        false_or_true=ArticlePro.the_article_is_new(strURL)
+        if false_or_true:
+            # articleRead file에 추가 저장
+            f = open("../article/articleReadf.txt", 'a')
+            f.write(str(self.articleURL)+ "\n")
+            f.close()
+            print("읽은 기사의 URL이 정상적으로 저장되었습니다. ["+self.articleURL+"]")
+        else:
+            tkinter.messagebox.showinfo("어!","이미 이전에 읽으신 기사입니다.")
+
+    def articleNext(self):
+        # 다음 기사 가져오기
+        self.articleIndex+=1
+        self.articleCrawlingArray = articleCrawling(self.articleIndex)
+        self.articleURL = self.articleCrawlingArray[0]
+        self.articleContent = self.articleCrawlingArray[1]
+        self.left_url_label.config(text=self.articleURL)
+        self.left_content_text.configure(state='normal')
+        self.left_content_text.delete(1.0,"end")
+        self.left_content_text.insert(0.0, self.articleContent)
+        self.left_content_text.configure(state='disabled')
+
+    def articlePrev(self):
+        # 이전 기사 가져오기
+        if self.articleIndex!=1:
+            self.articleIndex-=1
+            self.articleCrawlingArray = articleCrawling(self.articleIndex)
+            self.articleURL = self.articleCrawlingArray[0]
+            self.articleContent = self.articleCrawlingArray[1]
+            self.left_url_label.config(text=self.articleURL)
+            self.left_content_text.configure(state='normal')
+            self.left_content_text.delete(1.0,"end")
+            self.left_content_text.insert(0.0, self.articleContent)
+            self.left_content_text.configure(state='disabled')
 
     def timer_toggle(self):
         if self.paused:
@@ -100,6 +175,17 @@ class articleGUI:
         self.timestr = '{:02}:{:02}'.format(*divmod(self.delta, 60))
         self.right_top_time_label.config(text=self.timestr)
         self.right_top_time_label.after(1000,self.timer_run)
+
+    def callback(self,event):
+        webbrowser.open_new(self.articleURL)
+
+    def back_to_main(self):
+        self.root.destroy()
+        MainGUI()
+
+    #병합할때는 이거 #지워서 코드로 돌아가게 할 것
+    #def open_note(self):
+        #noteListGUI()
 
 if __name__=='__main__':
     articleGUI=articleGUI()
