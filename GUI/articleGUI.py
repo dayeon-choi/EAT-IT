@@ -68,7 +68,7 @@ class articleGUI:
         self.right_top_time_label=tkinter.Label(self.right_top_canvas,bg='#786255',fg='#FBDDC5',text='00:00',font=("None", 25, 'bold'))
         self.right_top_time_label.place(x=62,y=110)
         # button
-        self.timer_start = tkinter.PhotoImage(file="../image/article_right_top_timer_start.png")
+        self.timer_start = tkinter.PhotoImage(file="../image/article_right_top_timer_stop.png")
         self.right_top_time_btn = tkinter.Button(self.right_top_canvas, image=self.timer_start, command=self.timer_toggle,width=45, height=45, highlightthickness=0, borderwidth=0, padx=0, pady=0)
         self.right_top_time_btn.place(x=82.5,y=170)
         #timer toggle true
@@ -151,7 +151,7 @@ class articleGUI:
     def timer_toggle(self):
         if self.paused:
             self.paused=False
-            self.timer_stop = tkinter.PhotoImage(file="../image/article_right_top_timer_stop.png")
+            self.timer_stop = tkinter.PhotoImage(file="../image/article_right_top_timer_start.png")
             self.right_top_time_btn.config(image=self.timer_stop)
             self.oldtime=time.time()
             self.timer_run()
