@@ -9,6 +9,8 @@ import tkinter.messagebox
 from multiprocessing import Process
 
 class articleGUI:
+    _chk = False
+
     def __init__(self):
         CANVAS_SIZE_WIDTH=1100  #canvas 가로 길이
         CANVAS_SIZE_HEIGHT=750  #canvas 세로 길이
@@ -179,14 +181,18 @@ class articleGUI:
         webbrowser.open_new(self.articleURL)
 
     def back_to_main(self):
-        self.p.terminate()
-        self.root.destroy()
-        MainGUI()
+        if articleGUI._chk:
+            self.p.terminate()
+            self.root.destroy()
+            MainGUI()
+        else:
+            self.root.destroy()
+            MainGUI()
 
-    #병합할때는 이거 #지워서 코드로 돌아가게 할 것
     def open_note(self):
         self.p = Process(target=noteListGUI)
         self.p.start()
+        articleGUI._chk = True
 
 if __name__=='__main__':
     articleGUI=articleGUI()
