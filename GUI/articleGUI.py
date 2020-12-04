@@ -180,6 +180,7 @@ class articleGUI:
 
     def back_to_main(self):
         self.root.destroy()
+        self.noteListGUI.root.destory()
         MainGUI()
 
     #병합할때는 이거 #지워서 코드로 돌아가게 할 것
